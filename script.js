@@ -1,25 +1,30 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
+const music = document.getElementById("bgMusic");
 
 let noClickCount = 0;
-const maxClicks = 3; // change to 4 if you want
+const maxClicks = 3;
 
-// When "No" is clicked
+// NO button logic
 noBtn.addEventListener("click", () => {
   noClickCount++;
 
+  const messages = [
+    "Are you sure? 🥺",
+    "Think again 💔",
+    "That hurts 😢"
+  ];
+
   if (noClickCount <= maxClicks) {
-    const messages = [
-      "Are you sure? 🥺",
-      "Think again... 💔",
-      "That hurts 😢",
-      "Last chance 😏"
-    ];
     alert(messages[noClickCount - 1]);
+  }
+
+  if (noClickCount === maxClicks) {
+    noBtn.innerText = "You can't catch me 😜";
   }
 });
 
-// After enough clicks, button starts running
+// Runaway after limit
 noBtn.addEventListener("mouseover", () => {
   if (noClickCount >= maxClicks) {
     const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
@@ -29,16 +34,39 @@ noBtn.addEventListener("mouseover", () => {
   }
 });
 
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
 // YES button
 yesBtn.addEventListener("click", () => {
+  music.play();
+
+  setInterval(createHeart, 300);
+
   document.body.innerHTML = `
-    <div style="text-align:center; padding:50px; font-family:Poppins;">
+    <div style="text-align:center; padding:40px; font-family:Poppins;">
       <h1 style="color:#ff4d6d; font-family:Pacifico;">YAYYYY 😍❤️</h1>
-      <p style="font-size:1.4rem; margin-top:20px;">
-        You tried saying no... but destiny had other plans 💕<br><br>
-        Thank you for being my Valentine 💖<br><br>
-        I love you endlessly 😘
+
+      <img src="love.png" 
+           alt="Cute Love Image" 
+           style="max-width:300px; margin:25px auto; display:block;">
+
+      <p style="font-size:1.4rem;">
+        You + Me = Forever 💕<br><br>
+        Happy Valentine’s Day my love 💖<br><br>
+        I’m so lucky to have you 😘
       </p>
     </div>
   `;
 });
+
