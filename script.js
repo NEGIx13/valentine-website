@@ -1,11 +1,12 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const music = document.getElementById("bgMusic");
+const mainContent = document.getElementById("mainContent");
 
 let noClickCount = 0;
 const maxClicks = 3;
 
-// NO button logic
+// NO button click logic
 noBtn.addEventListener("click", () => {
   noClickCount++;
 
@@ -17,10 +18,6 @@ noBtn.addEventListener("click", () => {
 
   if (noClickCount <= maxClicks) {
     alert(messages[noClickCount - 1]);
-  }
-
-  if (noClickCount === maxClicks) {
-    noBtn.innerText = "You can't catch me 😜";
   }
 });
 
@@ -34,39 +31,34 @@ noBtn.addEventListener("mouseover", () => {
   }
 });
 
-// Floating hearts
+// Heart animation
 function createHeart() {
   const heart = document.createElement("div");
-  heart.classList.add("heart");
+  heart.className = "heart";
   heart.innerText = "❤️";
   heart.style.left = Math.random() * 100 + "vw";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
+  setTimeout(() => heart.remove(), 5000);
 }
 
 // YES button
 yesBtn.addEventListener("click", () => {
-  music.play();
-
+  music.play(); // works now
   setInterval(createHeart, 300);
 
-  document.body.innerHTML = `
-    <div style="text-align:center; padding:40px; font-family:Poppins;">
-      <h1 style="color:#ff4d6d; font-family:Pacifico;">YAYYYY 😍❤️</h1>
+  mainContent.innerHTML = `
+    <h1 style="color:#ff4d6d; font-family:Pacifico;">YAYYYY 😍❤️</h1>
 
-      <img src="love.png" 
-           alt="Cute Love Image" 
-           style="max-width:300px; margin:25px auto; display:block;">
+    <img src="love.png"
+         style="max-width:300px; margin:25px auto; display:block;">
 
-      <p style="font-size:1.4rem;">
-        You + Me = Forever 💕<br><br>
-        Happy Valentine’s Day my love 💖<br><br>
-        I’m so lucky to have you 😘
-      </p>
-    </div>
+    <p style="font-size:1.4rem;">
+      You + Me = Forever 💕<br><br>
+      Happy Valentine’s Day my love 💖<br><br>
+      I’m so lucky to have you 😘
+    </p>
   `;
 });
+
 
